@@ -1,8 +1,9 @@
+require('dotenv').config();
 const app = require('./src/app');
 
-const port = 3001;
+const PORT = process.env.APP_PORT || 3001;
 
-const server = app.listen(port, () => console.log(`server listen on port ${port}`));
+const server = app.listen(PORT, () => console.log(`server listen on port ${PORT}`));
 
 process.on('SIGINT', () => {
     server.close(() => console.log('server is shutdown'));
