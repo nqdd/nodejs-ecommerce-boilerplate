@@ -10,6 +10,16 @@ app.use(helmet())
 app.use(compression())
 
 // connect database
+const database = require('./dbs/init.mongodb.js');
+database.connect();
+
+// logger
+const { logResourceUsage, logDatabasebActiveConnection } = require('./helpers/monitor.js');
+
+setInterval(() => {
+    logResourceUsage();
+    logDatabasebActiveConnection();
+}, 5000);
 
 // routes
 app.get('/', (req, res, next) => {
@@ -19,6 +29,7 @@ app.get('/', (req, res, next) => {
         metadata: strCompress.repeat(100000)
     })
 })
+
 // hanlding error
 
 module.exports = app;
