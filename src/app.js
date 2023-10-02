@@ -9,8 +9,13 @@ app.use(morgan("dev"))
 app.use(helmet())
 app.use(compression())
 
+app.use(express.json())
+app.use(express.urlencoded({
+    extended: true
+}))
+
 // connect database
-const database = require('./dbs/init.mongodb.js');
+const database = require('./database');
 database.connect();
 
 // logger
@@ -22,13 +27,7 @@ setInterval(() => {
 }, 5000);
 
 // routes
-app.get('/', (req, res, next) => {
-    const strCompress = 'Hello world!'
-    return res.status(200).json({
-        message: 'Hello world!',
-        metadata: strCompress.repeat(100000)
-    })
-})
+app.use(require('./routes'))
 
 // hanlding error
 

@@ -21,8 +21,8 @@ class Database {
             maxPoolSize: 100
         }).then(() => {
             console.log('connect to database successfully!');
-        }).catch(() => {
-            console.log('connect to database failure!')
+        }).catch((error) => {
+            console.log('connect to database failure!', error)
         })
     }
 }
