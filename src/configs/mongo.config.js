@@ -8,4 +8,4 @@ const config = {
     name: DATABASE_NAME
 }
 
-module.exports = { config };
+module.exports = config;

@@ -9,27 +9,19 @@ app.use(morgan("dev"))
 app.use(helmet())
 app.use(compression())
 
+app.use(express.json())
+app.use(express.urlencoded({
+    extended: true
+}))
+
 // connect database
-const database = require('./dbs/init.mongodb.js');
-database.connect();
+require('./database/mongodb').connect();
 
-// logger
-const { logResourceUsage, logDatabasebActiveConnection } = require('./helpers/monitor.js');
-
-setInterval(() => {
-    logResourceUsage();
-    logDatabasebActiveConnection();
-}, 5000);
+// health check
+require('./helpers/health.helper').run();
 
 // routes
-app.get('/', (req, res, next) => {
-    const strCompress = 'Hello world!'
-    return res.status(200).json({
-        message: 'Hello world!',
-        metadata: strCompress.repeat(100000)
-    })
-})
+app.use(require('./routes'))
 
 // hanlding error
-
 module.exports = app;
