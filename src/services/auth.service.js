@@ -1,10 +1,11 @@
 'use strict'
 
-const { shopModel } = require('../models');
 const bycrypt = require('bcrypt');
-const tokenService = require('./token.service');
 const crypto = require('crypto');
-const { createTokenPair } = require('../utils');
+
+const shopModel  = require('../models/shop.model');
+const tokenService = require('./token.service');
+const { createTokenPair } = require('../utils/auth.util');
 
 const ROLE = Object.freeze({
     ADMIN: 'ADMIN',

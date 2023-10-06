@@ -15,20 +15,13 @@ app.use(express.urlencoded({
 }))
 
 // connect database
-const database = require('./database');
-database.connect();
+require('./database/mongodb').connect();
 
-// logger
-const { logResourceUsage, logDatabasebActiveConnection } = require('./helpers/monitor.js');
-
-setInterval(() => {
-    logResourceUsage();
-    logDatabasebActiveConnection();
-}, 5000);
+// health check
+require('./helpers/health.helper').run();
 
 // routes
 app.use(require('./routes'))
 
 // hanlding error
-
 module.exports = app;

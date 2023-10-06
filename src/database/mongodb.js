@@ -1,18 +1,15 @@
 'use strict';
 const mongoose = require('mongoose');
-const { config } = require('../configs/mongodb');
+const config = require('../configs/mongo.config');
 
 const CONNECTION_STRING = `mongodb://${config.host}:${config.port}/${config.name}`;
 
-class Database {
-    static instance = null;
-
+class MongoDb {
     static getInstance() {
-        if (!Database.instance) {
-            Database.instance = new Database();
+        if (!MongoDb.instance) {
+            MongoDb.instance = new MongoDb();
         }
-
-        return Database.instance;
+        return MongoDb.instance;
     }
 
     connect() {
@@ -27,6 +24,4 @@ class Database {
     }
 }
 
-const database = Database.getInstance();
-
-module.exports = database;
+module.exports = MongoDb.getInstance();

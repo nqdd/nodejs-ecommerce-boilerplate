@@ -1,6 +1,5 @@
 'use strict'
 
-const { shopModel } = require('../models');
 const authService = require('../services/auth.service');
 
 class AuthController {
