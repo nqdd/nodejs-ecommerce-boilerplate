@@ -13,6 +13,19 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "_moduleAliases": {
+    "@root": ".",
+    "@database": "src/database",
+    "@models": "src/models",
+    "@controllers": "src/controllers",
+    "@routes": "src/routes",
+    "@shared": "src/shared",
+    "@configs": "src/shared/configs",
+    "@constants": "src/shared/constants",
+    "@helpers": "src/shared/helpers",
+    "@utils": "src/shared/utils",
+    "@services": "src/services"
+  },
   "dependencies": {
     "bcrypt": "^5.1.1",
     "compression": "^1.7.4",
@@ -20,6 +33,7 @@
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
+    "module-alias": "^2.2.3",
     "mongoose": "^7.5.3"
   },
   "devDependencies": {

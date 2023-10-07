@@ -3,18 +3,13 @@
 const bycrypt = require('bcrypt');
 const crypto = require('crypto');
 
-const shopModel  = require('../models/shop.model');
-const tokenService = require('./token.service');
-const { createTokenPair } = require('../utils/auth.util');
-
-const ROLE = Object.freeze({
-    ADMIN: 'ADMIN',
-    USER: 'USER'
-})
+const shopModel = require('@models/shop.model');
+const { ROLE } = require('@constants/role.constant');
 
 class AuthService {
     signUp = async ({ name, email, password }) => {
         try {
+            
             const shop = await shopModel.findOne({ email }).lean();
 
             if (shop) {
@@ -34,35 +29,13 @@ class AuthService {
                 roles: [ROLE.ADMIN]
             });
 
-            if (newShop) {
-                const { privateKey, publicKey } = crypto.generateKeyPairSync('rsa', {
-                    modulusLength: 4096
-                });
-                console.log({ privateKey, publicKey })
-                const publicKeyString = await tokenService.create({
-                    userId: newShop._id,
-                    publicKey
-                })
-
-                if (!publicKeyString) {
-                    return {
-                        code: '000',
-                        message: 'error'
-                    }
-                }
-
-                const tokens = await createTokenPair({ userId: newShop._id, email }, publicKey, privateKey);
-                console.log('create token success', tokens);
-
-                return {
-                    code: 201,
-                    metadata: {
-                        shop: newShop,
-                        tokens
-                    }
+            return {
+                code: 201,
+                metadata: {
+                    shop: newShop,
+                    tokens
                 }
             }
-
 
         } catch (error) {
             return {
@@ -72,6 +45,11 @@ class AuthService {
             }
         }
     }
+
+    login = async ({ email, password }) => {
+
+    }
 }
 
 module.exports = new AuthService();
+
