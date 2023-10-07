@@ -1,6 +1,6 @@
 'use strict'
 
-const tokenModel = require("../models/token.model");
+const tokenModel = require("@models/token.model");
 
 class TokenService {
     create = async ({ userId, publicKey }) => {

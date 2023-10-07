@@ -1,3 +1,4 @@
+require('module-alias/register')
 const compression = require('compression');
 const express = require('express');
 const { default: helmet } = require('helmet');
@@ -15,13 +16,16 @@ app.use(express.urlencoded({
 }))
 
 // connect database
-require('./database/mongodb').connect();
-
-// health check
-require('./helpers/health.helper').run();
+require('@database/mongodb').connect();
 
 // routes
-app.use(require('./routes'))
+app.use(require('@routes'))
+
+// heath check
+const timeStart = new Date().toISOString();
+app.get('/heath', (_, res) => {
+    res.status(200).send(timeStart);
+})
 
 // hanlding error
 module.exports = app;

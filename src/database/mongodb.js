@@ -1,6 +1,6 @@
 'use strict';
 const mongoose = require('mongoose');
-const config = require('../configs/mongo.config');
+const config = require('@configs/mongo.config');
 
 const CONNECTION_STRING = `mongodb://${config.host}:${config.port}/${config.name}`;
 
