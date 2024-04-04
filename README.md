@@ -1,1 +1,1 @@
-# gas-ecommerce
+# Nodejs Ecommerce Boilerplate
